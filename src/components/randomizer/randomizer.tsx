@@ -7,28 +7,35 @@ export default function Randomizer() {
   const [bookName, setBookName] = useState(<h3></h3>);
   const [authorName, setAuthorName] = useState(<p></p>);
 
-  const fetchBooks = () =>
-    fetch("https://openlibrary.org/search.json?q=norwegian+wood", {
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((books) => {
-        const img = (
-          <img
-            src={`https://covers.openlibrary.org/b/isbn/${
-              books.docs[0].isbn[Math.floor(Math.random() * books.docs[0].isbn.length)]
-            }-M.jpg`}
-            alt="Book cover"
-            onError={() => <p>Could not find book cover</p>}
-          ></img>
-        );
-        setBookCover(img);
-        setBookName(<h1>{books.docs[0].title}</h1>);
-        setAuthorName(<p>by {books.docs[0].author_name}</p>);
-      });
-
+  const fetchBooks = () => {
+    try {
+      fetch("https://openlibrary.org/search.json?q=random&fields=*", {
+        headers: {
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((books) => {
+          console.log(books)
+          const img = (
+            <img
+              src={`https://covers.openlibrary.org/b/isbn/${
+                books.docs[0].isbn[
+                  Math.floor(Math.random() * books.docs[0].isbn.length)
+                ]
+              }-M.jpg`}
+              alt="Book cover"
+              onError={() => <p>Could not find book cover</p>}
+            ></img>
+          );
+          books.docs[0].isbn === undefined ? "Could not find an image for this book" : setBookCover(img)
+          setBookName(<h1>{books.docs[0].title}</h1>);
+          setAuthorName(<p>by {books.docs[0].author_name}</p>);
+        });
+    } catch (error) {
+      console.log("Couldnt find book with this word..trying again", error);
+    }
+  };
   return (
     <>
       <Header />
