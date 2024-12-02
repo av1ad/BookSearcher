@@ -18,20 +18,18 @@ export default function Randomizer() {
         .then((books) => {
           // Books seem to be loading very slow, maybe I could implement an algorithm to be able to find the random book faster
           // Still need some error handling to try a new book cover if one isn't found. (Maybe use Olid instead of the isbn which gets the cover edition instead of scrolling through all iterations of book covers existing)
-          console.log(books)
           const randomBook = Math.floor(Math.random() * books.docs.length);
+          console.log(books.docs[randomBook]);
           const img = (
             <img
-              src={`https://covers.openlibrary.org/b/isbn/${
-                books.docs[randomBook].isbn[
-                  Math.floor(Math.random() * books.docs[randomBook].isbn.length)
-                ]
-              }-M.jpg`}
+              src={`https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`}
               alt="Book cover"
               onError={() => <p>Could not find book cover</p>}
             ></img>
           );
-          books.docs[0].isbn === undefined ? console.log("Could not find an image for this book") : setBookCover(img)
+          books.docs[0].isbn === undefined
+            ? console.log("Could not find an image for this book")
+            : setBookCover(img);
           setBookName(<h1>{books.docs[randomBook].title}</h1>);
           setAuthorName(<p>by {books.docs[randomBook].author_name}</p>);
         });
