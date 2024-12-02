@@ -17,7 +17,8 @@ export default function Randomizer() {
         .then((res) => res.json())
         .then((books) => {
           // Books seem to be loading very slow, maybe I could implement an algorithm to be able to find the random book faster
-          // Still need some error handling to try a new book cover if one isn't found. (Maybe use Olid instead of the isbn which gets the cover edition instead of scrolling through all iterations of book covers existing)
+          // Still need some error handling to try a new book cover if one isn't found. (Ex: Failed to load resource: the server responded with a status of 500 ())
+            // Probably use the isbn cover or something similar 
           const randomBook = Math.floor(Math.random() * books.docs.length);
           console.log(books.docs[randomBook]);
           const img = (

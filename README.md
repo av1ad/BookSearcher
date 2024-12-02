@@ -3,7 +3,7 @@
 An application that helps you discover books using the OpenLibrary API, with additional features like randomization and AI-assisted recommendations.
 
 ## TBA
-- [ ] Make randomizer able to display correct size and random books
+- [x] Make randomizer able to display correct size and random books
 - [ ] Add AI page and make it fully functional with a textbox, etc.
 - [ ] Finish regular homepage search
 - [ ] Finish genre page with a hover on the most important book genres, along with another page to show all genres
