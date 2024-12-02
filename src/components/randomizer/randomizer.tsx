@@ -17,11 +17,12 @@ export default function Randomizer() {
         .then((res) => res.json())
         .then((books) => {
           console.log(books)
+          const randomBook = Math.floor(Math.random() * books.docs.length);
           const img = (
             <img
               src={`https://covers.openlibrary.org/b/isbn/${
-                books.docs[0].isbn[
-                  Math.floor(Math.random() * books.docs[0].isbn.length)
+                books.docs[randomBook].isbn[
+                  Math.floor(Math.random() * books.docs[randomBook].isbn.length)
                 ]
               }-M.jpg`}
               alt="Book cover"
@@ -29,8 +30,8 @@ export default function Randomizer() {
             ></img>
           );
           books.docs[0].isbn === undefined ? "Could not find an image for this book" : setBookCover(img)
-          setBookName(<h1>{books.docs[0].title}</h1>);
-          setAuthorName(<p>by {books.docs[0].author_name}</p>);
+          setBookName(<h1>{books.docs[randomBook].title}</h1>);
+          setAuthorName(<p>by {books.docs[randomBook].author_name}</p>);
         });
     } catch (error) {
       console.log("Couldnt find book with this word..trying again", error);
