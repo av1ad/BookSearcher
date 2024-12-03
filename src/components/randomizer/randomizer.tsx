@@ -4,7 +4,7 @@ import Footer from "../Footer";
 
 export default function Randomizer() {
   const [bookCover, setBookCover] = useState(<img></img>);
-  const [bookName, setBookName] = useState(<h3></h3>);
+  const [bookName, setBookName] = useState(<h1></h1>);
   const [authorName, setAuthorName] = useState(<p></p>);
 
   const fetchBooks = () => {
@@ -18,21 +18,20 @@ export default function Randomizer() {
         .then((books) => {
           // Books seem to be loading very slow, maybe I could implement an algorithm to be able to find the random book faster
           // Still need some error handling to try a new book cover if one isn't found. (Ex: Failed to load resource: the server responded with a status of 500 ())
-            // Probably use the isbn cover or something similar 
+          // Probably use the isbn cover or something similar
           const randomBook = Math.floor(Math.random() * books.docs.length);
           console.log(books.docs[randomBook]);
           const img = (
             <img
               src={`https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`}
               alt="Book cover"
-              onError={() => <p>Could not find book cover</p>}
             ></img>
           );
           books.docs[0].isbn === undefined
             ? console.log("Could not find an image for this book")
             : setBookCover(img);
           setBookName(<h1>{books.docs[randomBook].title}</h1>);
-          setAuthorName(<p>by {books.docs[randomBook].author_name}</p>);
+          setAuthorName(<p>by {books.docs[randomBook].author_name[0]}</p>);
         });
     } catch (error) {
       console.log("Couldnt find book with this word..trying again", error);
