@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BookSearcher
 
-## Getting Started
+An application that helps you discover books using the OpenLibrary API, with additional features like randomization and AI-assisted recommendations.
 
-First, run the development server:
+## TBA
+- [x] Make randomizer able to display correct size and random books
+- [ ] Add AI page and make it fully functional with a textbox, etc.
+- [ ] Finish regular homepage search
+- [ ] Finish genre page with a hover on the most important book genres, along with another page to show all genres
+- [ ] Add author page making it able to look through list of authors and then displaying author's picture and work
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Search books by author, title, and genre.
+- Randomizer for discovering new books
+- AI-powered book recommendations based on user input or preferences
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Basic Search
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Navigate to the home page and you will see the search button for searching for books based on title or author.
 
-## Learn More
+### Random Book Discovery
 
-To learn more about Next.js, take a look at the following resources:
+Clicking on the 'Get Me A Random Book' button gets ou any random book from the
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### AI-Assisted Recommendations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Explain anything such as titles, genres, authors, etc. You are looking for and it will give you books that fit your prompt.
 
-## Deploy on Vercel
+## API Reference
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This app uses the OpenLibrary API. For more information, visit [OpenLibrary API documentation](https://openlibrary.org/developers/api).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+## Technologies
+Next.js
+
+
+## License
+
+
+## Acknowledgments
+
+- OpenLibrary for providing the book data API
