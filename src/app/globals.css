@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --button-bg: #3c7a46;
+  --bg: #252422;
+  --reseda-green: #758173;
+  --celadon: #a9c5a0;
+  --tea-green: #c6dec6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,7 +18,25 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--reseda-green);
+  font-family: 'Roboto', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+#root {
+  max-width: 1800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inria Sans", sans-serif;
+}
+
+.active {
+  color: #252422;
 }
