@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Home() {
   const [bookCover, setBookCover] = useState(<img></img>);
@@ -12,10 +13,10 @@ export default function Home() {
           const randomBook = Math.floor(Math.random() * books.docs.length);
           console.log(randomBook);
           const img = (
-            <img
+            <Image
               src={`https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`}
               alt="Book cover"
-            ></img>
+            />
           );
           setBookCover(img);
         }
