@@ -4,13 +4,8 @@ import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const Header = () => {
-
-  // Router
-  const router = useRouter();
-
   // State to manage the Header's visibility
   const [nav, setNav] = useState(false);
 
@@ -83,13 +78,13 @@ const Header = () => {
             key={item.id}
             className="p-4 border-b rounded-xl hover:bg-[#A9C5A0] duration-300 hover:text-black cursor-pointer border-gray-600"
           >
-            {/* <NavLink
-              to={item.link}
-              className={({ isActive }) => (isActive ? "active" : "")}
+            <Link
+              href={item.link}
+              // className={({ isActive }) => (isActive ? "active" : "")}
               target={item.target}
             >
               {item.text}
-            </NavLink> */}
+            </Link>
           </li>
         ))}
       </ul>
