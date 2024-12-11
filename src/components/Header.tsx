@@ -1,10 +1,16 @@
+"use client";
+
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+
+  // Router
+  const router = useRouter();
+
   // State to manage the Header's visibility
   const [nav, setNav] = useState(false);
 
@@ -12,6 +18,7 @@ const Header = () => {
   const handleNav = () => {
     setNav(!nav);
   };
+
 
   // Array containing navigation items
   const navItems = [
@@ -41,13 +48,13 @@ const Header = () => {
             key={item.id}
             className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
-            {/* <NavLink
-              to={item.link}
-              className={({ isActive }) => (isActive ? "active" : "")}
+            <Link
+              href={item.link}
+              // className={({ isActive }) => (isActive ? "active" : "")}
               target={item.target}
             >
               {item.text}
-            </NavLink> */}
+            </Link>
           </li>
         ))}
       </ul>
