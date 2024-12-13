@@ -7,29 +7,29 @@ import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 
 export default function Page() {
+  // Gets randomly selected books and does a scrolling animation for them
+  // Search bar allowing you to search from author, title, isbn, etc.
   const [bookCover, setBookCover] = useState(<img></img>);
+  const [isLoading, setIsLoading] = useState(false);
 
   try {
     fetch("https://openlibrary.org/search.json?q=random&fields=*")
       .then((res) => res.json())
       .then((books) => {
-        for (let i = 0; i < 4; i++) {
-          const bookDisplay = [];
-          const randomBook = Math.floor(Math.random() * books.docs.length);
-          bookDisplay.push(randomBook);
-          let src = ``;
-          src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
-          const img = (
-            <Image
-              loader={() => src}
-              src={src}
-              alt="Book cover"
-              width={500}
-              height={700}
-            />
-          );
-          setBookCover(img);
-        }
+        const randomBook = Math.floor(Math.random() * books.docs.length);
+        let src = ``;
+        src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
+        const img = (
+          <Image
+            loader={() => src}
+            src={src}
+            alt="Book cover"
+            width={500}
+            height={700}
+          />
+        );
+        setBookCover(img);
+        setIsLoading(true);
       });
   } catch {
     console.log("cant fetch books...trying again");
@@ -37,22 +37,29 @@ export default function Page() {
   return (
     <React.Fragment>
       <Header />
-
       <div className="min-h-screen">
-        <div>
-          <ul className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 justify-items-center">
-            <li className="border-[.5em] w-[12.75em] h-[21em] m-10">
-              {bookCover}
-            </li>
-            <li className="border-[.5em] w-[12.75em] h-[21em] m-10">
-              {bookCover}
-            </li>
-            <li className="border-[.5em] w-[12.75em] h-[21em] m-10">
-              {bookCover}
-            </li>
-            <li className="border-[.5em] w-[12.75em] h-[21em] m-10">
-              {bookCover}
-            </li>
+        <div className="w-[calc(500px*8)] animate-scroll">
+          <ul className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 justify-items-center whitespace-nowrap overflow-hidden">
+            {isLoading ? (
+              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
           </ul>
         </div>
         <div className="flex justify-center text-[#A9C5A0] mt-12">
