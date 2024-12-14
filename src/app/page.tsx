@@ -38,8 +38,28 @@ export default function Page() {
     <React.Fragment>
       <Header />
       <div className="min-h-screen min-w-screen overflow-hidden">
-        <div className="w-[calc(800px*4)] animate-scroll">
-          <ul className="grid grid-cols-8 justify-items-center whitespace-nowrap">
+        <div className="w-[calc(550px*8)] animate-scroll">
+          <ul className="grid grid-cols-12 justify-items-center whitespace-nowrap">
+            {isLoading ? (
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
+            {isLoading ? (
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
+            ) : (
+              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+            )}
             {isLoading ? (
               <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
             ) : (
