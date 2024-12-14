@@ -1,4 +1,4 @@
-// import Image from "next/image";
+import Image from "next/image";
 
 export default function Randomizer() {
      
@@ -7,7 +7,7 @@ export default function Randomizer() {
     return (
         <div>
             <h1>Title</h1>
-            {/* <Image alt="Book Cover" src="#"></Image> */}
+            <Image alt="Book Cover" src="#">{undefined}</Image>
             <p>Author</p>
             <button>Get A Random Book</button>
         </div>
