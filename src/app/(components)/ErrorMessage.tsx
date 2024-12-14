@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 
-export default function ErrorBoundary() {
+export default function ErrorMessage() {
     return (
         <div className="h-screen content-center">
             <h1 className="text-red-800 text-4xl">404</h1>

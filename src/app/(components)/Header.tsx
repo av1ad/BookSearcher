@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   // State to manage the Header's visibility
@@ -13,7 +14,6 @@ const Header = () => {
   const handleNav = () => {
     setNav(!nav);
   };
-
 
   // Array containing navigation items
   const navItems = [
@@ -29,6 +29,9 @@ const Header = () => {
       target: "_blank",
     },
   ];
+
+  const pathname = usePathname();
+
   return (
     <div className="bg-[#758173] flex justify-between items-center h-24 max-w-full mx-auto px-8 text-white">
       {/* Logo */}
@@ -43,11 +46,7 @@ const Header = () => {
             key={item.id}
             className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
-            <Link
-              href={item.link}
-              // className={({ isActive }) => (isActive ? "active" : "")}
-              target={item.target}
-            >
+            <Link href={item.link} className={pathname == item.link ? 'text-black' : 'text-blue'} target={item.target}>
               {item.text}
             </Link>
           </li>
