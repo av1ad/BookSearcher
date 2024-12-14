@@ -13,12 +13,12 @@ export default {
         foreground: "var(--foreground)",
       },
       animation: {
-        scroll: 'scroll 15s linear infinite',
+        scroll: 'scroll 25s linear infinite',
       },
       keyframes: {
         scroll: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(calc(-100%))' },
+          '100%': { transform: 'translateX(-100%)' },
         },
       },
     },

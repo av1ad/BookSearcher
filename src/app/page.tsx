@@ -37,26 +37,26 @@ export default function Page() {
   return (
     <React.Fragment>
       <Header />
-      <div className="min-h-screen">
-        <div className="w-[calc(500px*8)] animate-scroll">
-          <ul className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 justify-items-center whitespace-nowrap overflow-hidden">
+      <div className="min-h-screen min-w-screen overflow-hidden">
+        <div className="w-[calc(800px*4)] animate-scroll">
+          <ul className="grid grid-cols-8 justify-items-center whitespace-nowrap">
             {isLoading ? (
-              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
             ) : (
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
             {isLoading ? (
-              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
             ) : (
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
             {isLoading ? (
-              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
             ) : (
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
             {isLoading ? (
-              <li className="w-[12.75em] h-[21em] m-10">{bookCover}</li>
+              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
             ) : (
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
