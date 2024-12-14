@@ -27,8 +27,8 @@ export default function AI() {
   return (
     <div>
       <Header />
-        <h1>AI</h1>
-        <textarea></textarea>
+      <h1>AI</h1>
+      <textarea></textarea>
       <Footer />
     </div>
   );
