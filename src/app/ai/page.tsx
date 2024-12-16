@@ -1,18 +1,28 @@
 "use client"
 
 import OpenAI from "openai";
+import { use, useState } from "react";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 
 export default function AI() {
+
+    const [prompt, setPrompt] = useState('')
+    const [recommendation, setRecommendation] = useState('')
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null); 
+
+
+
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true,
   });
 
   try {
       async function open() {
         const completion = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo",
+          model: "",
           messages: [
             { role: "system", content: "You are a book recommendation assistant" },
             {
