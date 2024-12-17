@@ -1,7 +1,7 @@
 "use client"
 
 import OpenAI from "openai";
-import { use, useState } from "react";
+import { useState } from "react";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 
@@ -15,7 +15,7 @@ export default function AI() {
 
 
   const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
 
@@ -33,7 +33,7 @@ export default function AI() {
         });
         console.log(completion.choices[0].message);
       }
-  } catch (error) {
+  } catch {
     setError(error)
   }
   // Using OpenAI a user will be able to provide a prompt for the AI to generate and show a list of books from openlibrary that best match

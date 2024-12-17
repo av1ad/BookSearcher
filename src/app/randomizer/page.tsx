@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Header from "../(components)/Header";
@@ -37,10 +37,16 @@ export default function Randomizer() {
   return (
     <div>
       <Header />
-      <h1>Title</h1>
-      {isLoading ? bookCover : <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>}
-      <p>Author</p>
-      <button>Get A Random Book</button>
+      <div className="min-h-screen content-center justify-items-center">
+        <h1>Title</h1>
+        {isLoading ? (
+          bookCover
+        ) : (
+          <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+        )}
+        <p>Author</p>
+        <button>Get A Random Book</button>
+      </div>
       <Footer />
     </div>
   );
