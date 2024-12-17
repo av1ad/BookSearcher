@@ -8,10 +8,13 @@ import Footer from "../(components)/Footer";
 // Using OpenAI a user will be able to provide a prompt for the AI to generate and show a list of books from openlibrary that best match
 // what is asked
 
+// Need some error handling such as if openai cannot be reached, if api key is not found
+
+
 export default function AI() {
   const [prompt, setPrompt] = useState<string>("");
   const [recommendation, setRecommendation] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 //   const [error, setError] = useState<string>("");
 
   const openai = new OpenAI({
@@ -52,6 +55,8 @@ export default function AI() {
       );
     } catch (error) {
       console.log(error);
+    } finally {
+        setLoading(false)
     }
   };
 
@@ -67,9 +72,9 @@ export default function AI() {
           onChange={(e) => setRecommendation(e.target.value)}
         ></textarea>
         <button onClick={() => generateResponse(recommendation)}>
-          Generate Book
+            {loading ? "Generating book...." : "Get Recommendation"}
         </button>
-        {loading ? <div>{prompt}</div> : "Generating book recommendation...."}
+        <div>{prompt}</div>
       </div>
       <Footer />
     </div>
