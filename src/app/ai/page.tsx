@@ -9,9 +9,10 @@ import Footer from "../(components)/Footer";
 // what is asked
 
 export default function AI() {
-  const [prompt, setPrompt] = useState<string | null>(null);
-  const [recommendation, setRecommendation] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [prompt, setPrompt] = useState<string>("");
+  const [recommendation, setRecommendation] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   const openai = new OpenAI({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -28,7 +29,7 @@ export default function AI() {
             content: [
               {
                 type: "text",
-                text: "You are a book recommendation assistant, strictly only give book recommendations. Any other response just tell them you a book recommandation assistant",
+                text: "You are a book recommendation assistant. Provide detailed book recommendations including title, author, and a brief description of why this book matches the user's request. Focus on giving 2-3 specific recommendations that best match the query.",
               },
             ],
           },
@@ -44,8 +45,11 @@ export default function AI() {
         ],
       });
       setLoading(true);
+      setError("");
       setRecommendation(inputText);
-      setPrompt(completion.choices[0].message.content);
+      setPrompt(
+        completion.choices[0].message.content || "No recommendation found."
+      );
     } catch (error) {
       console.log(error);
     }
