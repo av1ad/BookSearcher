@@ -34,7 +34,7 @@ export default function AI() {
         console.log(completion.choices[0].message);
       }
   } catch (error) {
-    console.log(error)
+    setError(error)
   }
   // Using OpenAI a user will be able to provide a prompt for the AI to generate and show a list of books from openlibrary that best match
   // what is asked
