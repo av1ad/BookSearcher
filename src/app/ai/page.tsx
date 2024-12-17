@@ -10,19 +10,28 @@ import Footer from "../(components)/Footer";
 
 // Need some error handling such as if openai cannot be reached, if api key is not found
 
-
 export default function AI() {
   const [prompt, setPrompt] = useState<string>("");
   const [recommendation, setRecommendation] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-//   const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const openai = new OpenAI({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
 
+  if (!openai) {
+    console.log("API Key could not be found or generated.");
+    return;
+  }
+
   const generateResponse = async (inputText: string) => {
+    if (!inputText.trim()) {
+      setError("Please enter a prompt for a book recommendation.");
+      return;
+    }
+
     try {
       const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -48,7 +57,7 @@ export default function AI() {
         ],
       });
       setLoading(true);
-    //   setError("");
+      setError("");
       setRecommendation(inputText);
       setPrompt(
         completion.choices[0].message.content || "No recommendation found."
@@ -56,7 +65,7 @@ export default function AI() {
     } catch (error) {
       console.log(error);
     } finally {
-        setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -72,9 +81,9 @@ export default function AI() {
           onChange={(e) => setRecommendation(e.target.value)}
         ></textarea>
         <button onClick={() => generateResponse(recommendation)}>
-            {loading ? "Generating book...." : "Get Recommendation"}
+          {loading ? "Generating book...." : "Get Recommendation"}
         </button>
-        <div>{prompt}</div>
+        <div>{error ? "Cannot fetch a recommendation" : prompt}</div>
       </div>
       <Footer />
     </div>
