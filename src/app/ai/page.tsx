@@ -12,7 +12,7 @@ export default function AI() {
   const [prompt, setPrompt] = useState<string>("");
   const [recommendation, setRecommendation] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+//   const [error, setError] = useState<string>("");
 
   const openai = new OpenAI({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -45,7 +45,7 @@ export default function AI() {
         ],
       });
       setLoading(true);
-      setError("");
+    //   setError("");
       setRecommendation(inputText);
       setPrompt(
         completion.choices[0].message.content || "No recommendation found."
