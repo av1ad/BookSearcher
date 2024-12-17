@@ -62,7 +62,7 @@ export default function AI() {
           value={recommendation}
           onChange={(e) => setRecommendation(e.target.value)}
         ></textarea>
-        <button onSubmit={() => generateResponse(recommendation)}>
+        <button onClick={() => generateResponse(recommendation)}>
           Generate Book
         </button>
         {loading ? <div>{prompt}</div> : "Generating book recommendation...."}
