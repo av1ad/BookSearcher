@@ -29,6 +29,7 @@ export default function Randomizer() {
               alt="Book cover"
               width={200}
               height={400}
+              className="m-10"
             />
           );
           setBookCover(img);
@@ -42,16 +43,18 @@ export default function Randomizer() {
     }
   }
   return (
+
+    // Make this into a card with bg, etc.
     <div>
       <Header />
-      <div className="min-h-screen content-center justify-items-center">
-        <h1>{title}</h1>
+      <div className="min-h-screen content-center justify-items-center justify-center">
+        <h1>{isLoading ? "" : title}</h1>
         {isLoading ? (
           <li className="w-[12.75em] h-[21em] m-10 animate-pulse list-none bg-white"></li>
         ) : (
           bookCover
         )}
-        <p>{author}</p>
+        <p>{isLoading ? "" : author}</p>
         <button onClick={() => randomBook()}>
           {isLoading ? "Generating...." : "Get a random book"}
         </button>
