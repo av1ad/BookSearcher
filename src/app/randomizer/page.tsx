@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Randomizer() {
   // Gets random book when button is clicked, book shows about the same information as the search query
 
-  const [bookCover, setBookCover] = useState<string>("");
+  const [bookCover, setBookCover] = useState<React.JSX.Element | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("")
   const [author, setAuthor] = useState<string>("")
