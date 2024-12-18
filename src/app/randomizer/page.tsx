@@ -23,8 +23,8 @@ export default function Randomizer() {
             loader={() => src}
             src={src}
             alt="Book cover"
-            width={500}
-            height={700}
+            width={200}
+            height={400}
           />
         );
         setBookCover(img);
@@ -42,7 +42,7 @@ export default function Randomizer() {
         {isLoading ? (
           bookCover
         ) : (
-          <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
+          <li className="w-[12.75em] h-[21em] m-10 animate-pulse list-none bg-white"></li>
         )}
         <p>Author</p>
         <button>Get A Random Book</button>

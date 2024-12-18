@@ -5,6 +5,8 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Logo from "../../../public/logosvg.svg";
 
 const Header = () => {
   // State to manage the Header's visibility
@@ -35,8 +37,14 @@ const Header = () => {
   return (
     <div className="bg-[#758173] flex justify-between items-center h-24 max-w-full mx-auto px-8 text-white">
       {/* Logo */}
-      <h1 className="w-[75%] text-3xl font-bold text-[#FFFFFF] text-left">
+      <h1 className="w-[75%] text-3xl font-bold text-[#FFFFFF] text-left flex justify-items-center align-middle">
         BookSearcher{" "}
+        <Image
+          alt="BookSearcher Logo"
+          src={Logo}
+          width={45}
+          className="ml-3"
+        ></Image>
       </h1>
 
       {/* Desktop Navigation */}
@@ -44,9 +52,13 @@ const Header = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
+            className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#A9C5A0]"
           >
-            <Link href={item.link} className={pathname == item.link ? 'text-black' : 'text-blue'} target={item.target}>
+            <Link
+              href={item.link}
+              className={pathname == item.link ? "text-[#A9C5A0]" : "text-blue"}
+              target={item.target}
+            >
               {item.text}
             </Link>
           </li>
@@ -75,11 +87,11 @@ const Header = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 border-b rounded-xl hover:bg-[#A9C5A0] duration-300 hover:text-black cursor-pointer border-gray-600"
+            className="p-4 border-b hover:bg-[#A9C5A0] duration-300 hover:text-[#A9C5A0] cursor-pointer border-gray-600 text-center"
           >
             <Link
               href={item.link}
-              // className={({ isActive }) => (isActive ? "active" : "")}
+              className={pathname == item.link ? "text-[#A9C5A0]" : "text-blue"}
               target={item.target}
             >
               {item.text}

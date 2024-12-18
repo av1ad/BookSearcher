@@ -34,6 +34,9 @@ export default function Page() {
   } catch {
     console.log("cant fetch books...trying again");
   }
+
+
+  // For searching I'll use next/redirect to redirect to search/{id} (able to search using isbn, author, title)
   return (
     <React.Fragment>
       <Header />
