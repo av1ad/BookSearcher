@@ -32,7 +32,7 @@ export default function Randomizer() {
           setBookCover(img);
         });
     } catch {
-      console.log("cant fetch books...trying again");
+      console.log("Cannot fetch books...trying again");
     } finally {
       setIsLoading(false);
     }
