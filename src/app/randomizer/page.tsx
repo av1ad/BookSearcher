@@ -8,8 +8,10 @@ import { useState } from "react";
 export default function Randomizer() {
   // Gets random book when button is clicked, book shows about the same information as the search query
 
-  const [bookCover, setBookCover] = useState(<img></img>);
-  const [isLoading, setIsLoading] = useState(false);
+  const [bookCover, setBookCover] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("")
+  const [author, setAuthor] = useState<string>("")
 
   async function randomBook() {
     try {
@@ -30,6 +32,8 @@ export default function Randomizer() {
             />
           );
           setBookCover(img);
+          setTitle(books.docs[randomBook].title)
+          setAuthor(books.docs[randomBook].author_name[0])
         });
     } catch {
       console.log("Cannot fetch books...trying again");
@@ -41,13 +45,13 @@ export default function Randomizer() {
     <div>
       <Header />
       <div className="min-h-screen content-center justify-items-center">
-        <h1>Title</h1>
+        <h1>{title}</h1>
         {isLoading ? (
           <li className="w-[12.75em] h-[21em] m-10 animate-pulse list-none bg-white"></li>
         ) : (
           bookCover
         )}
-        <p>Author</p>
+        <p>{author}</p>
         <button onClick={() => randomBook()}>
           {isLoading ? "Generating...." : "Get a random book"}
         </button>
