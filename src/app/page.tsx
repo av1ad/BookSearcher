@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/app/(components)/Header";
 import Footer from "@/app/(components)/Footer";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Page() {
   // Gets randomly selected books and does a scrolling animation for them
@@ -12,29 +13,37 @@ export default function Page() {
   const [bookCover, setBookCover] = useState<React.JSX.Element | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  try {
-    fetch("https://openlibrary.org/search.json?q=random&fields=*")
-      .then((res) => res.json())
-      .then((books) => {
-        const randomBook = Math.floor(Math.random() * books.docs.length);
-        let src = ``;
-        src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
-        const img = (
-          <Image
-            loader={() => src}
-            src={src}
-            alt="Book cover"
-            width={500}
-            height={700}
-          />
-        );
-        setBookCover(img);
-        setIsLoading(true);
-      });
-  } catch {
-    console.log("cant fetch books...trying again");
-  }
-
+  useEffect(() => {
+    const fetchRandomBook = () => {
+      try {
+        fetch("https://openlibrary.org/search.json?q=random&fields=*")
+          .then((res) => res.json())
+          .then((books) => {
+            books.docs.slice(0, 8). map((book: any) => {
+              let src = ``;
+              src = `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`;
+              const img = (
+                <Image
+                  key={books.cover_edition_key}
+                  loader={() => src}
+                  src={src}
+                  alt="Book cover"
+                  width={500}
+                  height={700}
+                />
+              );
+              setBookCover(img);
+              setIsLoading(true);
+            });
+          });
+      } catch {
+        console.log("cant fetch books...trying again");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchRandomBook();
+  }, []);
 
   // For searching I'll use next/redirect to redirect to search/{id} (able to search using isbn, author, title)
   return (
@@ -79,7 +88,9 @@ export default function Page() {
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
             {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{bookCover}</li>
+              <li className="w-[50%] h-[100%] m-10">
+                <Link href={`/books/id`}>{bookCover}</Link>
+              </li>
             ) : (
               <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
             )}
