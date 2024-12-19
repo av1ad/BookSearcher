@@ -9,8 +9,8 @@ import { FaSearch } from "react-icons/fa";
 export default function Page() {
   // Gets randomly selected books and does a scrolling animation for them
   // Search bar allowing you to search from author, title, isbn, etc.
-  const [bookCover, setBookCover] = useState(<img></img>);
-  const [isLoading, setIsLoading] = useState(false);
+  const [bookCover, setBookCover] = useState<React.JSX.Element | undefined>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   try {
     fetch("https://openlibrary.org/search.json?q=random&fields=*")
