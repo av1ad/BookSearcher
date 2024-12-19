@@ -12,6 +12,7 @@ export default function Randomizer() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("")
   const [author, setAuthor] = useState<string>("")
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
   async function randomBook() {
     try {
@@ -55,9 +56,12 @@ export default function Randomizer() {
           bookCover
         )}
         <p>{isLoading ? "" : author}</p>
-        <button onClick={() => randomBook()}>
-          {isLoading ? "Generating...." : "Get a random book"}
-        </button>
+        {isLoading ? <button disabled={isDisabled} className="focus:outline-none text-white bg-[#3c7a46] hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-[#3c7a46] dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => setIsDisabled(true)}>
+          Generating....
+        </button> : <button className="focus:outline-none text-white bg-[#3c7a46] hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-[#3c7a46] dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => randomBook()}>
+          Get Random Book
+        </button>}
+        
       </div>
       <Footer />
     </div>
