@@ -119,6 +119,7 @@ export default function Page() {
             placeholder="Search books by title or author"
             className="w-[65%] bg-[#D9D9D9] bg-opacity-10 p-4 placeholder-gray-400"
           />
+          {error}
           <button className="bg-[#D9D9D9] text-[#000] md:text-2xl sm:text-sm p-5">
             <FaSearch />
           </button>
