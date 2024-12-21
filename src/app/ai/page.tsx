@@ -58,6 +58,13 @@ export default function AI() {
             ],
           },
         ],
+        max_tokens: 1500,
+        temperature: 0.8,
+        top_p: 0.9,
+        frequency_penalty: 0.5,
+        presence_penalty: 0.3,
+        n: 1,
+        stop: ["\n\n\n"],
       });
 
       setRecommendation(inputText);
@@ -65,7 +72,22 @@ export default function AI() {
         completion.choices[0].message.content || "No recommendation found."
       );
     } catch (error) {
-      console.log(error);
+      if (error instanceof OpenAI.APIError) {
+        switch (error.status) {
+          case 401:
+            setError("Invalid API key. Please check your configuration.");
+            break;
+          case 429:
+            setError("Rate limit exceeded. Please try again later.");
+            break;
+          case 500:
+            setError("OpenAI service error. Please try again later.");
+            break;
+          default:
+            setError("An error occurred while getting recommendations.");
+        }
+        console.log(error)
+      }
     } finally {
       setLoading(false);
     }
@@ -74,18 +96,24 @@ export default function AI() {
   return (
     <div>
       <Header />
-      <div className="min-h-screen justify-items-center">
-        <h1>AI</h1>
+      <div className="min-h-screen justify-items-center content-normal">
         <textarea
           placeholder="Give me a book similar to......"
-          className="block w-[75%] p-2.5"
+          className="block w-[75%] p-2.5 bg-[#4f5d4d] text-[#a9c5a0] rounded-lg m-10"
           value={recommendation}
           onChange={(e) => setRecommendation(e.target.value)}
         ></textarea>
-        <button onClick={() => generateResponse(recommendation)}>
+        <button
+          className="focus:outline-none text-white bg-[#3c7a46] hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-[#3c7a46] dark:hover:bg-green-700 dark:focus:ring-green-800"
+          onClick={() => generateResponse(recommendation)}
+        >
           {loading ? "Generating book...." : "Get Recommendation"}
         </button>
-        <div>{error ? "Cannot fetch a recommendation" : prompt}</div>
+        <div>
+          {error
+            ? <div className="text-red-600">Cannot fetch a recommendation, please enter something</div>
+            : <div className="m-5 text-center text-[#a9c5a0] px-24">{prompt}</div>}
+        </div>
       </div>
       <Footer />
     </div>

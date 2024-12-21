@@ -61,6 +61,7 @@ export default function Page() {
         setBookCover(bookImages);
       } catch {
         console.log("cant fetch books...trying again");
+        fetchRandomBook()
       } finally {
         setIsLoading(false);
       }
