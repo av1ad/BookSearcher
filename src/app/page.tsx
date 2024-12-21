@@ -6,7 +6,7 @@ import Footer from "@/app/(components)/Footer";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   // Gets randomly selected books and does a scrolling animation for them
@@ -16,18 +16,22 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // const router = useRouter()
+  const router = useRouter();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
     try {
+      if (!searchQuery.trim()) {
+        throw new Error("Please enter a valid search");
+      }
+      router.push(`/search/${encodeURIComponent(searchQuery)}`);
     } catch (error: any) {
       setError(error.message);
       console.log(error);
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   }
 
@@ -38,7 +42,7 @@ export default function Page() {
           "https://openlibrary.org/search.json?q=random&fields=*"
         );
         const response = await data.json();
-        const books = response.docs.slice(50, 58);
+        const books = response.docs.slice(90, 102);
         console.log(books);
         const bookImages = books.map((book: any) => {
           const src = `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`;
@@ -50,6 +54,7 @@ export default function Page() {
               alt="Book cover"
               width={500}
               height={700}
+              quality={60}
             />
           );
         });
@@ -70,8 +75,9 @@ export default function Page() {
       <div className="min-h-screen min-w-screen overflow-hidden">
         <div className="w-[calc(550px*8)] animate-scroll">
           <ul className="grid grid-cols-12 justify-items-center whitespace-nowrap">
+            {/* Main loading */}
             {isLoading
-              ? Array(8)
+              ? Array(12)
                   .fill(0)
                   .map((_, index) => (
                     <li
@@ -83,22 +89,29 @@ export default function Page() {
                   <Link key={index} href={`/books/${index}`}>
                     <div className="w-[12.75em] h-[21em] m-10">{cover}</div>
                   </Link>
-                ))
-}
+                ))}
+
+            {/* Duplicate loading */}
           </ul>
         </div>
+
+        {error ? <div className="text-red-700">{error}</div> : ""}
+
         <form
           className="flex justify-center text-[#A9C5A0] mt-12"
           onSubmit={onSubmit}
         >
           <input
             type="text"
+            value={searchQuery}
             placeholder="Search books by title or author"
             className="w-[65%] bg-[#D9D9D9] bg-opacity-10 p-4 placeholder-gray-400"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          {error}
-          <button className="bg-[#D9D9D9] text-[#000] md:text-2xl sm:text-sm p-5">
+          <button
+            type="submit"
+            className="bg-[#D9D9D9] text-[#000] md:text-2xl sm:text-sm p-5"
+          >
             <FaSearch />
           </button>
         </form>
