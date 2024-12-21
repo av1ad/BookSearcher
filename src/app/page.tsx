@@ -31,7 +31,7 @@ export default function Page() {
       setError(error.message);
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(true);
     }
   }
 
@@ -95,7 +95,7 @@ export default function Page() {
           </ul>
         </div>
 
-        {error ? <div className="text-red-700">{error}</div> : ""}
+        {error ? <div className="text-red-700 text-center m-10">{error}</div> : ""}
 
         <form
           className="flex justify-center text-[#A9C5A0] mt-12"
