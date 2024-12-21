@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function SearchPage() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<null>(null);
+  const [error, setError] = useState<unknown>(null);
 
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
@@ -71,7 +71,7 @@ export default function SearchPage() {
       <div className="min-h-scsreen flex flex-col">
         <div className="text-center m-10">
           <h1>Finding all books with the query: {query}</h1>
-          {error ? <div className="text-center m-5 text-red-700">{error}</div> : ""}
+          {error ? <div className="text-center m-5 text-red-700">{String(error)}</div> : ""}
           <div className="grid grid-cols-6 justify-items-center list-none">
             {isLoading
               ? Array(12)
