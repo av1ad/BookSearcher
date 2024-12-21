@@ -10,7 +10,7 @@ import Link from "next/link";
 function SearchResults() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<unknown>(null);
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
 
@@ -22,7 +22,7 @@ function SearchResults() {
         );
         const response = await data.json();
         const book = response.docs;
-        const bookInfo = book.map((books) => {
+        const bookInfo = book.map((books: any) => {
           const author = books.author_name;
           const title = books.title;
           const bookImage = `https://covers.openlibrary.org/b/olid/${books.cover_edition_key}-M.jpg`;
