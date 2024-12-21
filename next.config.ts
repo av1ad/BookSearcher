@@ -4,10 +4,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: 'https',
         hostname: 'covers.openlibrary.org',
         port: '',
-        pathname: '/b/olid/'
+        pathname: '/b/**',
       },
     ],
   },

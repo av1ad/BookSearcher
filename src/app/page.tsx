@@ -26,7 +26,7 @@ export default function Page() {
       if (!searchQuery.trim()) {
         throw new Error("Please enter a valid search");
       }
-      router.push(`/search/${encodeURIComponent(searchQuery)}`);
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
     } catch (error: any) {
       setError(error.message);
       console.log(error);
