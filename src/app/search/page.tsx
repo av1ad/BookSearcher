@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +14,6 @@ export default function SearchPage() {
 
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
-  const pathname = usePathname();
 
   // Fetch the data from the path name
   // Loading card for books

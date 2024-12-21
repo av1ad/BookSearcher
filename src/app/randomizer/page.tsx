@@ -21,8 +21,7 @@ export default function Randomizer() {
         .then((res) => res.json())
         .then((books) => {
           const randomBook = Math.floor(Math.random() * books.docs.length);
-          let src = ``;
-          src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
+          const src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
           const img = (
             <Image
               loader={() => src}
