@@ -6,13 +6,17 @@ import Footer from "@/app/(components)/Footer";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Page() {
   // Gets randomly selected books and does a scrolling animation for them
   // Search bar allowing you to search from author, title, isbn, etc.
-  const [books, setBooks] = useState<React.JSX.Element | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [bookCover, setBookCover] = useState<React.JSX.Element[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // const router = useRouter()
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,36 +24,36 @@ export default function Page() {
     setError(null);
     try {
     } catch (error: any) {
-      setError(error.message)
-      console.log(error)
+      setError(error.message);
+      console.log(error);
     } finally {
-      setIsLoading(true)
+      setIsLoading(true);
     }
   }
 
   useEffect(() => {
-    const fetchRandomBook = () => {
+    const fetchRandomBook = async () => {
       try {
-        fetch("https://openlibrary.org/search.json?q=random&fields=*")
-          .then((res) => res.json())
-          .then((books) => {
-            books.docs.slice(0, 8).map((book: any) => {
-              let src = ``;
-              src = `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`;
-              const img = (
-                <Image
-                  key={books.cover_edition_key}
-                  loader={() => src}
-                  src={src}
-                  alt="Book cover"
-                  width={500}
-                  height={700}
-                />
-              );
-              setBooks(img);
-              setIsLoading(true);
-            });
-          });
+        const data = await fetch(
+          "https://openlibrary.org/search.json?q=random&fields=*"
+        );
+        const response = await data.json();
+        const books = response.docs.slice(50, 58);
+        console.log(books);
+        const bookImages = books.map((book: any) => {
+          const src = `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`;
+          return (
+            <Image
+              key={book.cover_edition_key}
+              loader={() => src}
+              src={src}
+              alt="Book cover"
+              width={500}
+              height={700}
+            />
+          );
+        });
+        setBookCover(bookImages);
       } catch {
         console.log("cant fetch books...trying again");
       } finally {
@@ -66,48 +70,21 @@ export default function Page() {
       <div className="min-h-screen min-w-screen overflow-hidden">
         <div className="w-[calc(550px*8)] animate-scroll">
           <ul className="grid grid-cols-12 justify-items-center whitespace-nowrap">
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">{books}</li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
-            {isLoading ? (
-              <li className="w-[50%] h-[100%] m-10">
-                <Link href={`/books/id`}>{books}</Link>
-              </li>
-            ) : (
-              <li className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"></li>
-            )}
+            {isLoading
+              ? Array(8)
+                  .fill(0)
+                  .map((_, index) => (
+                    <li
+                      key={index}
+                      className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"
+                    ></li>
+                  ))
+              : bookCover.map((cover, index) => (
+                  <Link key={index} href={`/books/${index}`}>
+                    <div className="w-[12.75em] h-[21em] m-10">{cover}</div>
+                  </Link>
+                ))
+}
           </ul>
         </div>
         <form
@@ -118,6 +95,7 @@ export default function Page() {
             type="text"
             placeholder="Search books by title or author"
             className="w-[65%] bg-[#D9D9D9] bg-opacity-10 p-4 placeholder-gray-400"
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           {error}
           <button className="bg-[#D9D9D9] text-[#000] md:text-2xl sm:text-sm p-5">
