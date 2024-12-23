@@ -21,11 +21,10 @@ const Header = () => {
   const navItems = [
     { id: 1, text: "Home", link: "/", target: "_self" },
     { id: 2, text: "Genres", link: "/genres", target: "_self" },
-    { id: 3, text: "Authors", link: "/authors", target: "_self" },
-    { id: 4, text: "Randomizer", link: "/randomizer", target: "_self" },
-    { id: 5, text: "AI", link: "/ai", target: "_self" },
+    { id: 3, text: "Randomizer", link: "/randomizer", target: "_self" },
+    { id: 4, text: "AI", link: "/ai", target: "_self" },
     {
-      id: 6,
+      id: 5,
       text: <FaGithub size={25} />,
       link: "https://github.com/av1ad",
       target: "_blank",
