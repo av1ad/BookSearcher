@@ -61,8 +61,8 @@ function SearchResults() {
 
   return (
     <div className="text-center m-10">
-      <h1>
-        Finding all books with the query: {query}
+      <h1 className="text-[#a9c5a0] text-xl mb-10">
+        Finding all books with the query: <span className="font-bold underline">{query}</span>
       </h1>
       {error ? (
         <div className="text-center m-5 text-red-700">{String(error)}</div>
