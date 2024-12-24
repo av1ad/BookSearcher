@@ -15,7 +15,7 @@ function SearchResults() {
   const query = searchParams.get("q");
 
   function loadMoreBtn() {
-    
+    setError(null)
   }
 
   useEffect(() => {
@@ -53,7 +53,11 @@ function SearchResults() {
         setBooks(bookInfo);
         setIsLoading(false);
       } catch (error) {
-        throw new Error("Could not find or load books", error)
+        if(error instanceof Error) {
+          throw new Error("Could not find or load books", error)
+        } else {
+          throw new Error("")
+        }
       } finally {
         setIsLoading(false)
       }
