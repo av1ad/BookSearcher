@@ -10,9 +10,13 @@ import Link from "next/link";
 function SearchResults() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<unknown>(null);
+  const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
+
+  function loadMoreBtn() {
+    
+  }
 
   useEffect(() => {
     const displayBooks = async () => {
@@ -49,8 +53,9 @@ function SearchResults() {
         setBooks(bookInfo);
         setIsLoading(false);
       } catch (error) {
-        setError(error);
-        setIsLoading(false);
+        throw new Error("Could not find or load books", error)
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -65,7 +70,7 @@ function SearchResults() {
         Finding all books with the query: <span className="font-bold underline">{query}</span>
       </h1>
       {error ? (
-        <div className="text-center m-5 text-red-700">{String(error)}</div>
+        <div className="text-center m-5 text-red-700">{error}</div>
       ) : (
         ""
       )}
