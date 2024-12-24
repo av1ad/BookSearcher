@@ -15,7 +15,7 @@ function SearchResults() {
   const query = searchParams.get("q");
 
   function loadMoreBtn() {
-    setError(null)
+    setError(null);
   }
 
   useEffect(() => {
@@ -36,15 +36,22 @@ function SearchResults() {
               key={books.key || Math.random()}
               className="flex flex-col justify-items-center align-middle m-5"
             >
-              <Image
-                key={books.cover_edition_key}
-                loader={() => bookImage}
-                src={bookImage}
-                alt="Book cover"
-                width={200}
-                height={200}
-                quality={60}
-              />
+              {books.cover_edition_key ? (
+                <Image
+                  key={books.cover_edition_key}
+                  loader={() => bookImage}
+                  src={bookImage}
+                  alt="Book cover"
+                  width={200}
+                  height={200}
+                  quality={60}
+                />
+              ) : (
+                <div className="bg-white opacity-25 w-[12.75em] h-[100%] align-middle text-center text-lg">
+                  <span className="text-black opacity-100">No Cover Found</span>
+                </div>
+              )}
+
               <p>{author}</p>
               <p>{title}</p>
             </div>
@@ -53,13 +60,13 @@ function SearchResults() {
         setBooks(bookInfo);
         setIsLoading(false);
       } catch (error) {
-        if(error instanceof Error) {
-          throw new Error("Could not find or load books", error)
+        if (error instanceof Error) {
+          throw new Error("Could not find or load books", error);
         } else {
-          throw new Error("")
+          throw new Error("");
         }
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
@@ -71,13 +78,10 @@ function SearchResults() {
   return (
     <div className="text-center m-10">
       <h1 className="text-[#a9c5a0] text-xl mb-10">
-        Finding all books with the query: <span className="font-bold underline">{query}</span>
+        Finding all books with the query:{" "}
+        <span className="font-bold underline">{query}</span>
       </h1>
-      {error ? (
-        <div className="text-center m-5 text-red-700">{error}</div>
-      ) : (
-        ""
-      )}
+      {error ? <div className="text-center m-5 text-red-700">{error}</div> : ""}
       <div className="grid grid-cols-6 justify-items-center list-none">
         {isLoading
           ? Array(12)
@@ -94,7 +98,10 @@ function SearchResults() {
               </Link>
             ))}
       </div>
-      <button onClick={() => loadMoreBtn()}className="focus:outline-none text-white bg-[#3c7a46] hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-[#3c7a46] dark:hover:bg-green-700 dark:focus:ring-green-800">
+      <button
+        onClick={() => loadMoreBtn()}
+        className="focus:outline-none text-white bg-[#3c7a46] hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-[#3c7a46] dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
         Load More
       </button>
     </div>
