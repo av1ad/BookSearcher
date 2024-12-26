@@ -67,9 +67,11 @@ export default function AI() {
         stop: ["\n\n\n"],
       });
 
+      const replacedPrompt = completion.choices[0].message.content?.replaceAll("**", "")
+
       setRecommendation(inputText);
       setPrompt(
-        completion.choices[0].message.content || "No recommendation found."
+        replacedPrompt || "No recommendation found."
       );
     } catch (error) {
       if (error instanceof OpenAI.APIError) {
@@ -112,7 +114,7 @@ export default function AI() {
         <div>
           {error
             ? <div className="text-red-600">Cannot fetch a recommendation, please enter something</div>
-            : <div className="m-5 text-center text-[#a9c5a0] px-24">{prompt}</div>}
+            : <div className="m-5 text-center text-[#adc1a7] px-24 font-bold">{prompt}</div>}
         </div>
       </div>
       <Footer />
