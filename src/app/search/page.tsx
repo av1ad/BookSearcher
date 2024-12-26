@@ -54,8 +54,8 @@ function SearchResults() {
                 </div>
               )}
 
-              <p>{author}</p>
-              <p>{title}</p>
+              <p className="font-bold text-lg text-[#a9c5a0]">{title}</p>
+              <p className="text-[#a9c5a0]">By: {author}</p>
             </div>
           );
         });
