@@ -101,7 +101,7 @@ export default function AI() {
       <div className="min-h-screen justify-items-center content-normal">
         <textarea
           placeholder="Give me a book similar to......"
-          className="block w-[75%] p-2.5 bg-[#4f5d4d] text-[#a9c5a0] rounded-lg m-10"
+          className="block w-[75%] mx-auto p-2.5 bg-[#4f5d4d] text-[#a9c5a0] rounded-lg m-5"
           value={recommendation}
           onChange={(e) => setRecommendation(e.target.value)}
         ></textarea>
