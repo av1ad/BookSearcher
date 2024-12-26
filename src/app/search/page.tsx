@@ -26,6 +26,7 @@ function SearchResults() {
         );
         const response = await data.json();
         const book = response.docs;
+        console.log(book);
         const bookInfo = book.map((books: any) => {
           const author = books.author_name;
           const title = books.title;
@@ -45,9 +46,10 @@ function SearchResults() {
                   width={200}
                   height={200}
                   quality={60}
+                  className="mb-4"
                 />
               ) : (
-                <div className="bg-white opacity-25 w-[12.75em] h-[100%] align-middle text-center text-lg">
+                <div className="bg-white w-[10em] h-[16em] flex items-center justify-center text-center text-lg mb-4">
                   <span className="text-black opacity-100">No Cover Found</span>
                 </div>
               )}
@@ -82,7 +84,7 @@ function SearchResults() {
         <span className="font-bold underline">{query}</span>
       </h1>
       {error ? <div className="text-center m-5 text-red-700">{error}</div> : ""}
-      <div className="grid grid-cols-6 justify-items-center list-none">
+      <div className="grid grid-cols-6 gap-7 justify-items-center list-none">
         {isLoading
           ? Array(12)
               .fill(0)
