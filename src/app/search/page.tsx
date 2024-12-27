@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, ReactNode } from "react";
 import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
 import { useSearchParams } from "next/navigation";
@@ -8,8 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 function SearchResults() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [books, setBooks] = useState<Array<ReactNode>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
