@@ -20,8 +20,8 @@ export default function Randomizer() {
       await fetch("https://openlibrary.org/search.json?q=random&fields=*")
         .then((res) => res.json())
         .then((books) => {
-          const randomBook = Math.floor(Math.random() * books.docs.length);
-          const src = `https://covers.openlibrary.org/b/olid/${books.docs[randomBook].cover_edition_key}-L.jpg`;
+          const randomBook = Math.floor(Math.random() * books?.docs?.length);
+          const src = `https://covers.openlibrary.org/b/olid/${books?.docs[randomBook]?.cover_edition_key}-L.jpg`;
           const img = (
             <Image
               loader={() => src}
@@ -33,8 +33,8 @@ export default function Randomizer() {
             />
           );
           setBookCover(img);
-          setTitle(books.docs[randomBook].title);
-          setAuthor(books.docs[randomBook].author_name[0]);
+          setTitle(books?.docs[randomBook]?.title);
+          setAuthor(books?.docs[randomBook]?.author_name[0]);
         });
     } catch {
       console.log("Cannot fetch books...trying again");

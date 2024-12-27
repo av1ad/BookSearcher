@@ -28,18 +28,18 @@ function SearchResults() {
         const book = response.docs;
         console.log(book);
         const bookInfo = book.map((books: any) => {
-          const author = books.author_name;
-          const title = books.title;
-          const bookImage = `https://covers.openlibrary.org/b/olid/${books.cover_edition_key}-M.jpg`;
+          const author = books?.author_name;
+          const title = books?.title;
+          const bookImage = `https://covers.openlibrary.org/b/olid/${books?.cover_edition_key}-M.jpg`;
 
           return (
             <div
-              key={books.key || Math.random()}
+              key={books?.key || Math.random()}
               className="flex flex-col justify-items-center align-middle m-5"
             >
-              {books.cover_edition_key ? (
+              {books?.cover_edition_key ? (
                 <Image
-                  key={books.cover_edition_key}
+                  key={books?.cover_edition_key}
                   loader={() => bookImage}
                   src={bookImage}
                   alt="Book cover"

@@ -43,12 +43,11 @@ export default function Page() {
         );
         const response = await data.json();
         const books = response.docs.slice(90, 102);
-        console.log(books);
         const bookImages = books.map((book: any) => {
-          const src = `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`;
+          const src = `https://covers.openlibrary.org/b/olid/${book?.cover_edition_key}-L.jpg`;
           return (
             <Image
-              key={book.cover_edition_key}
+              key={book?.cover_edition_key}
               loader={() => src}
               src={src}
               alt="Book cover"
