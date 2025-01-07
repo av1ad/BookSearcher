@@ -7,7 +7,7 @@ import Header from "../(components)/Header";
 const genres = [
   {
     category: "Fiction",
-    color: "bg-red-500",
+    color: "bg-[#3c7a46]",
     items: [
       { name: "Fiction", slug: "fiction" },
       { name: "Fantasy", slug: "fantasy" },
@@ -18,7 +18,7 @@ const genres = [
   },
   {
     category: "Non-Fiction",
-    color: "bg-green-500",
+    color: "bg-[#3c7a46]",
     items: [
       { name: "Nonfiction", slug: "nonfiction" },
       { name: "Autobiographies", slug: "autobiography" },
@@ -27,7 +27,7 @@ const genres = [
   },
   {
     category: "Academic",
-    color: "bg-blue-500",
+    color: "bg-[#3c7a46]",
     items: [
       { name: "History", slug: "history" },
       { name: "Mathematics", slug: "mathematics" },
