@@ -39,3 +39,7 @@ body {
 .active {
   color: #252422;
 }
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
