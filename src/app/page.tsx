@@ -73,7 +73,7 @@ export default function Page() {
     <React.Fragment>
       <Header />
       <div className="min-h-screen min-w-screen overflow-hidden">
-        <div className="relative overflow-hidden mx-auto max-w-[90vw]">
+        <div className="relative overflow-hidden mx-auto">
           <div className="flex animate-scroll">
             {/* Main Books */}
             <div className="flex shrink-0">
