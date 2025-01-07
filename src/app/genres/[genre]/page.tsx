@@ -1,33 +1,72 @@
-"use client";
+'use client';
 
 import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
 import { usePathname } from "next/navigation";
-import { ReactNode, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useBooks } from "@/app/hooks/useBooks";
 
 export default function GenrePage() {
-  const [books, setBooks] = useState<Array<ReactNode>>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const pathname = usePathname();
-  const firstSegment = pathname.split("/")[2];
+  const genre = pathname.split("/")[2];
+  const displayGenre = genre.replace(/_/g, ' ').replace(/-/g, ' ');
 
-  // Shows a list of books with that genre that is selected, allows you to click on the book and redirects you to the book id
-  // We'll also use the search method for these so when they click on a subject/genre it redirects to the genre id
-  // Extra feature would being able to search with specific genre
-
-
-
+  const { books, isLoading, error } = useBooks('genre', genre);
 
   return (
     <div>
       <Header />
-      <div className="content-center justify-items-center my-10">
-        <h1 className="capitalize bold text-3xl bg-opacity-25 bg-black p-4 rounded-lg">
-          {firstSegment}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center text-[#a9c5a0] mb-12 capitalize">
+          {displayGenre} Books
         </h1>
-      </div>
 
+        {error ? (
+          <div className="text-red-500 text-center">{error}</div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+            {isLoading ? (
+              Array(12).fill(0).map((_, index) => (
+                <div
+                  key={index}
+                  className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                />
+              ))
+            ) : books.length > 0 ? (
+              books.map((book) => (
+                <Link
+                  key={book.key}
+                  href={`/books/${book.cover_edition_key}`}
+                  className="transform transition-all hover:scale-105"
+                >
+                  <div className="flex flex-col h-full">
+                    <Image
+                      src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
+                      alt={book.title}
+                      width={200}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full object-cover"
+                    />
+                    <div className="mt-2 space-y-1">
+                      <h2 className="font-semibold text-[#a9c5a0] line-clamp-2">
+                        {book.title}
+                      </h2>
+                      <p className="text-sm text-[#758173] line-clamp-1">
+                        By: {book.author_name?.[0]}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="col-span-full text-center text-xl text-[#a9c5a0]">
+                No books found for this genre
+              </div>
+            )}
+          </div>
+        )}
+      </div>
       <Footer />
     </div>
   );
