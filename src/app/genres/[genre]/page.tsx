@@ -14,6 +14,8 @@ export default function GenrePage() {
 
   const { books, isLoading, error } = useBooks('genre', genre);
 
+  console.log(books)
+
   return (
     <div>
       <Header />
@@ -53,7 +55,7 @@ export default function GenrePage() {
                         {book.title}
                       </h2>
                       <p className="text-sm text-[#758173] line-clamp-1">
-                        By: {book.author_name?.[0]}
+                        By: {book.authors[0]?.name || 'Unknown Author'}
                       </p>
                     </div>
                   </div>
