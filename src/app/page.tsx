@@ -60,7 +60,7 @@ export default function Page() {
         setBookCover(bookImages);
       } catch {
         console.log("cant fetch books...trying again");
-        fetchRandomBook()
+        fetchRandomBook();
       } finally {
         setIsLoading(false);
       }
@@ -73,29 +73,59 @@ export default function Page() {
     <React.Fragment>
       <Header />
       <div className="min-h-screen min-w-screen overflow-hidden">
-        <div className="w-[calc(550px*8)] animate-scroll">
-          <ul className="grid grid-cols-12 justify-items-center whitespace-nowrap">
-            {/* Main loading */}
-            {isLoading
-              ? Array(12)
-                  .fill(0)
-                  .map((_, index) => (
-                    <li
+        <div className="relative overflow-hidden mx-auto max-w-[90vw]">
+          <div className="flex animate-scroll">
+            {/* Main Books */}
+            <div className="flex shrink-0">
+              {isLoading
+                ? Array(8)
+                    .fill(0)
+                    .map((_, index) => (
+                      <li
+                        key={index}
+                        className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white shrink-0 list-none"
+                      ></li>
+                    ))
+                : bookCover.map((cover, index) => (
+                    <Link
                       key={index}
-                      className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white"
-                    ></li>
-                  ))
-              : bookCover.map((cover, index) => (
-                  <Link key={index} href={`/books/${index}`}>
-                    <div className="w-[12.75em] h-[21em] m-10">{cover}</div>
-                  </Link>
-                ))}
+                      href={`/books/${index}`}
+                      className="shrink-0"
+                    >
+                      <div className="w-[12.75em] h-[21em] m-10">{cover}</div>
+                    </Link>
+                  ))}
+            </div>
 
-            {/* Duplicate loading */}
-          </ul>
+            {/* Duplicate Books */}
+            <div className="flex shrink-0">
+              {isLoading
+                ? Array(8)
+                    .fill(0)
+                    .map((_, index) => (
+                      <li
+                        key={index}
+                        className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white shrink-0 list-none"
+                      ></li>
+                    ))
+                : bookCover.map((cover, index) => (
+                    <Link
+                      key={index}
+                      href={`/books/${index}`}
+                      className="shrink-0"
+                    >
+                      <div className="w-[12.75em] h-[21em] m-10">{cover}</div>
+                    </Link>
+                  ))}
+            </div>
+          </div>
         </div>
 
-        {error ? <div className="text-red-700 text-center m-10">{error}</div> : ""}
+        {error ? (
+          <div className="text-red-700 text-center m-10">{error}</div>
+        ) : (
+          ""
+        )}
 
         <form
           className="flex justify-center text-[#A9C5A0] mt-12"
