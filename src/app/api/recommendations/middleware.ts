@@ -3,10 +3,13 @@ import type { NextRequest } from 'next/server';
 
 const rateLimit = new Map();
 const RATE_LIMIT_DURATION = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 5; // 5 requests per ^
+const MAX_REQUESTS = 5; // 5 requests per minute
 
 export function middleware(request: NextRequest) {
-  const ip = request.ip ?? '127.0.0.1';
+  // Get IP from headers or forwarded headers
+  const ip = request.headers.get('x-forwarded-for') || 
+             request.headers.get('x-real-ip') ||
+             '127.0.0.1';
   const now = Date.now();
   
   const userRequests = rateLimit.get(ip) ?? [];
@@ -23,4 +26,9 @@ export function middleware(request: NextRequest) {
   rateLimit.set(ip, recentRequests);
   
   return NextResponse.next();
+}
+
+// Configure which routes to run middleware on
+export const config = {
+  matcher: '/api/recommendations/:path*',
 }
