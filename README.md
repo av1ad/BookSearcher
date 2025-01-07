@@ -1,45 +1,53 @@
 # BookSearcher
 
-An application that helps you discover books using the OpenLibrary API, with additional features like randomization and AI-assisted recommendations.
-
-## TBA
-- [x] Make randomizer able to display correct size and random books
-- [ ] Add AI page and make it fully functional with a textbox, etc.
-- [ ] Finish regular homepage search
-- [ ] Finish genre page with a hover on the most important book genres, along with another page to show all genres
-- [ ] Add author page making it able to look through list of authors and then displaying author's picture and work
+A modern web application built with Next.js that helps users discover books using the OpenLibrary API, featuring book search, randomization, and AI-assisted recommendations.
 
 ## Features
 
-- Search books by author, title, and genre.
-- Randomizer for discovering new books
-- AI-powered book recommendations based on user input or preferences
+### 🔍 Book Search
+- Search books by title and author
+- Filter and browse through search results
+- View detailed book information including covers, descriptions, and author details
 
-### Basic Search
+### 🎲 Random Book Discovery
+- "Get Me A Random Book" feature for discovering new reads
+- Displays random books with cover images and basic information
+- Perfect for readers looking to expand their literary horizons
 
-Navigate to the home page and you will see the search button for searching for books based on title or author.
+### 🤖 AI-Assisted Recommendations
+- AI-powered book recommendations based on user preferences
+- Natural language processing for understanding complex reading preferences
+- Rate-limited API to ensure fair usage
 
-### Random Book Discovery
+### 📚 Genre Exploration
+- Browse books by different genres
+- Interactive genre categories with hover effects
+- Comprehensive genre listing and filtering
 
-Clicking on the 'Get Me A Random Book' button gets ou any random book from the
+## Tech Stack
 
-### AI-Assisted Recommendations
+- **Frontend**: Next.js 15.0.4, React 19.0.0
+- **Styling**: TailwindCSS, PostCSS
+- **AI Integration**: OpenAI API
+- **Book Data**: OpenLibrary API
+- **TypeScript** for type safety
+- **ESLint** for code quality
 
-Explain anything such as titles, genres, authors, etc. You are looking for and it will give you books that fit your prompt.
+## API Integration
 
-## API Reference
-
-This app uses the OpenLibrary API. For more information, visit [OpenLibrary API documentation](https://openlibrary.org/developers/api).
-
-## Contributing
-
-## Technologies
-Next.js
-
+### OpenLibrary API
+- Used for fetching book data, covers, and author information
+- No authentication required
+- Rate limiting implemented for fair usage
+### OpenAI API (for AI recommendations)
+- Requires API key for AI-powered recommendations
+- Protected with rate limiting (5 requests per minute)
 
 ## License
 
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-
-- OpenLibrary for providing the book data API
+- [OpenLibrary](https://openlibrary.org/) for providing the comprehensive book API
+- [OpenAI](https://openai.com/) for AI capabilities
+- All contributors and users of BookSearcher
