@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
@@ -10,12 +10,9 @@ import { useBooks } from "@/app/hooks/useBooks";
 export default function GenrePage() {
   const pathname = usePathname();
   const genre = pathname.split("/")[2];
-  const displayGenre = genre.replace(/_/g, ' ').replace(/-/g, ' ');
+  const displayGenre = genre.replace(/_/g, " ").replace(/-/g, " ");
 
-  const { books, isLoading, error } = useBooks('genre', genre);
-
-  console.log(books)
-
+  const { books, isLoading, error } = useBooks("genre", genre);
   return (
     <div>
       <Header />
@@ -29,12 +26,14 @@ export default function GenrePage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {isLoading ? (
-              Array(12).fill(0).map((_, index) => (
-                <div
-                  key={index}
-                  className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
-                />
-              ))
+              Array(12)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                  />
+                ))
             ) : books.length > 0 ? (
               books.map((book) => (
                 <Link
@@ -55,7 +54,7 @@ export default function GenrePage() {
                         {book.title}
                       </h2>
                       <p className="text-sm text-[#758173] line-clamp-1">
-                        By: {book.authors[0]?.name || 'Unknown Author'}
+                        By: {book.authors[0]?.name || "Unknown Author"}
                       </p>
                     </div>
                   </div>
