@@ -37,7 +37,7 @@ const Header = () => {
     <div className="bg-[#758173] flex justify-between items-center h-24 max-w-full mx-auto px-8 text-white">
       {/* Logo */}
       <h1 className="w-[75%] text-3xl font-bold text-[#FFFFFF] text-left flex justify-items-center align-middle">
-        BookSearcher{" "}
+        <Link href={"/"}>BookSearcher{" "}</Link>
         <Image
           alt="BookSearcher Logo"
           src={Logo}
