@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
   const now = Date.now();
   
   const userRequests = rateLimit.get(ip) ?? [];
-  const recentRequests = userRequests.filter(time => now - time < RATE_LIMIT_DURATION);
+  const recentRequests = userRequests.filter((time: any) => now - time < RATE_LIMIT_DURATION);
   
   if (recentRequests.length >= MAX_REQUESTS) {
     return NextResponse.json(
