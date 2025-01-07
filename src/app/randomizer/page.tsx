@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 import { useRandomBook } from "@/app/hooks/useBooks";
+import Link from "next/link";
 
 export default function Randomizer() {
   const { book, isLoading, error, refetch } = useRandomBook();
@@ -27,13 +28,15 @@ export default function Randomizer() {
             <div className="w-[12.75em] h-[21em] animate-pulse bg-white rounded-lg mx-auto" />
           ) : book ? (
             <>
-              <Image
-                src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`}
-                alt={book.title}
-                width={200}
-                height={400}
-                className="mx-auto rounded-lg shadow-lg transition-transform hover:scale-105"
-              />
+              <Link href={`/books/${book.cover_edition_key}`}>
+                <Image
+                  src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`}
+                  alt={book.title}
+                  width={200}
+                  height={400}
+                  className="mx-auto rounded-lg shadow-lg transition-transform hover:scale-105"
+                />
+              </Link>
               <div className="mt-4 space-y-2">
                 <h1 className="font-bold text-lg line-clamp-2">{book.title}</h1>
                 <p className="text-sm line-clamp-1">
