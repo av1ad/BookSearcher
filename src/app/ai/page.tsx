@@ -9,30 +9,30 @@ const EXAMPLE_PROMPTS = [
   "I love dystopian novels with strong character development",
   "Looking for historical fiction set in ancient Rome",
   "Recommend me books similar to The Lord of the Rings",
-  "Science fiction books with themes of artificial intelligence"
+  "Science fiction books with themes of artificial intelligence",
 ];
 
 function formatRecommendations(text: string) {
   // Split recommendations into sections
-  const recommendations = text.split('\n\n').filter(Boolean);
+  const recommendations = text.split("\n\n").filter(Boolean);
 
   return recommendations.map((recommendation, index) => {
-    const lines = recommendation.split('\n');
+    const lines = recommendation.split("\n");
     const formattedRec: Record<string, string> = {};
 
-    lines.forEach(line => {
-      const [key, ...valueParts] = line.split(': ');
-      const value = valueParts.join(': ');
+    lines.forEach((line) => {
+      const [key, ...valueParts] = line.split(": ");
+      const value = valueParts.join(": ");
       if (key && value) {
         formattedRec[key.toLowerCase()] = value;
       }
     });
 
     return (
-      <div 
-        key={index} 
+      <div
+        key={index}
         className={`p-6 rounded-lg bg-[#D9D9D9] bg-opacity-5 ${
-          index !== recommendations.length - 1 ? 'mb-6' : ''
+          index !== recommendations.length - 1 ? "mb-6" : ""
         }`}
       >
         <h3 className="text-2xl font-bold text-[#a9c5a0] mb-2">
@@ -40,19 +40,19 @@ function formatRecommendations(text: string) {
         </h3>
         <div className="space-y-2">
           <p className="text-lg text-[#758173]">
-            <span className="font-semibold">Author:</span>{' '}
-            {formattedRec.author}
+            <span className="font-semibold">Author:</span> {formattedRec.author}
           </p>
           <p className="text-[#758173]">
-            <span className="font-semibold">Genre:</span>{' '}
-            {formattedRec.genre}
+            <span className="font-semibold">Genre:</span> {formattedRec.genre}
           </p>
           <div className="mt-4">
             <p className="font-semibold text-[#a9c5a0] mb-1">Summary:</p>
             <p className="text-[#758173]">{formattedRec.summary}</p>
           </div>
           <div className="mt-4">
-            <p className="font-semibold text-[#a9c5a0] mb-1">Why you might like it:</p>
+            <p className="font-semibold text-[#a9c5a0] mb-1">
+              Why you might like it:
+            </p>
             <p className="text-[#758173]">{formattedRec.why}</p>
           </div>
         </div>
@@ -64,7 +64,8 @@ function formatRecommendations(text: string) {
 export default function AI() {
   const [prompt, setPrompt] = useState("");
   const [showExamples, setShowExamples] = useState(true);
-  const { recommendations, isLoading, error, getRecommendations } = useAIRecommendations();
+  const { recommendations, isLoading, error, getRecommendations } =
+    useAIRecommendations();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -72,7 +73,7 @@ export default function AI() {
       alert("Please provide a more detailed request");
       return;
     }
-    
+
     setShowExamples(false);
     await getRecommendations(prompt);
   }
@@ -86,8 +87,8 @@ export default function AI() {
             AI Book Recommendations
           </h1>
           <p className="text-[#758173]">
-            Tell me about your reading preferences, favorite genres, or books youve enjoyed, 
-            and Ill recommend some books you might like.
+            Tell me about your reading preferences, favorite genres, or books
+            youve enjoyed, and Ill recommend some books you might like.
           </p>
         </div>
 

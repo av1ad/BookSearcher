@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { FormEvent, useState } from "react";
 import Header from "@/app/(components)/Header";
@@ -17,12 +17,12 @@ export default function Page() {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
+
     if (!searchQuery.trim()) {
       setError("Please enter a valid search");
       return;
     }
-    
+
     router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
   }
 
@@ -35,12 +35,14 @@ export default function Page() {
             {[...Array(2)].map((_, arrayIndex) => (
               <div key={arrayIndex} className="flex shrink-0">
                 {isLoading
-                  ? Array(8).fill(0).map((_, index) => (
-                      <div
-                        key={`${arrayIndex}-loading-${index}`}
-                        className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white shrink-0 rounded-lg"
-                      />
-                    ))
+                  ? Array(8)
+                      .fill(0)
+                      .map((_, index) => (
+                        <div
+                          key={`${arrayIndex}-loading-${index}`}
+                          className="w-[12.75em] h-[21em] m-10 animate-pulse bg-white shrink-0 rounded-lg"
+                        />
+                      ))
                   : books.map((book) => (
                       <Link
                         key={`${arrayIndex}-${book.cover_edition_key}`}
@@ -50,7 +52,7 @@ export default function Page() {
                         <div className="w-[12.75em] h-[21em] m-10 transition-transform hover:scale-105">
                           <Image
                             src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg`}
-                            alt={book.title || 'Book cover'}
+                            alt={book.title || "Book cover"}
                             width={500}
                             height={700}
                             quality={60}
@@ -64,9 +66,7 @@ export default function Page() {
           </div>
         </div>
 
-        {error && (
-          <div className="text-red-700 text-center m-10">{error}</div>
-        )}
+        {error && <div className="text-red-700 text-center m-10">{error}</div>}
 
         <form
           className="flex justify-center text-[#A9C5A0] mt-12"

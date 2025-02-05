@@ -1,5 +1,5 @@
-import OpenAI from 'openai';
-import { NextResponse } from 'next/server';
+import OpenAI from "openai";
+import { NextResponse } from "next/server";
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -20,23 +20,23 @@ export async function POST(request: Request) {
     const { prompt } = await request.json();
 
     if (!prompt || prompt.trim().length < 10) {
-    return NextResponse.json(
-        { error: 'Please provide a more detailed request' },
+      return NextResponse.json(
+        { error: "Please provide a more detailed request" },
         { status: 400 }
-    );
-  }
+      );
+    }
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: SYSTEM_PROMPT
+          content: SYSTEM_PROMPT,
         },
         {
           role: "user",
-          content: prompt
-}
+          content: prompt,
+        },
       ],
       temperature: 0.7,
       max_tokens: 1000,
@@ -45,12 +45,12 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      recommendations: response.choices[0].message.content
+      recommendations: response.choices[0].message.content,
     });
   } catch (error: any) {
-    console.error('OpenAI API error:', error);
+    console.error("OpenAI API error:", error);
     return NextResponse.json(
-      { error: error?.message || 'Failed to get recommendations' },
+      { error: error?.message || "Failed to get recommendations" },
       { status: error?.status || 500 }
     );
   }

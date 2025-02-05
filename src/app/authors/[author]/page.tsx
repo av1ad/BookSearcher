@@ -1,8 +1,6 @@
-'use client';
-
+"use client";
 
 /////// TO BE WORKED ON ////////
-
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,11 +12,11 @@ import { useBooks } from "@/app/hooks/useBooks";
 export default function AuthorPage() {
   const pathname = usePathname();
   const authorId = pathname.split("/")[2];
-  const { books, authorInfo, isLoading, error } = useBooks('author', authorId);
+  const { books, authorInfo, isLoading, error } = useBooks("author", authorId);
 
   return (
     <div>
-            <Header />
+      <Header />
       <div className="max-w-6xl mx-auto px-4 py-8">
         {error ? (
           <div className="text-red-500 text-center">{error}</div>
@@ -30,31 +28,39 @@ export default function AuthorPage() {
               </h1>
               {authorInfo?.birth_date && (
                 <p className="text-[#758173]">
-                  {authorInfo.birth_date} - {authorInfo.death_date || 'Present'}
+                  {authorInfo.birth_date} - {authorInfo.death_date || "Present"}
                 </p>
               )}
               {authorInfo?.bio && (
                 <div className="max-w-2xl mx-auto mt-6 text-[#758173]">
-                  <p>{typeof authorInfo.bio === 'string' ? authorInfo.bio : authorInfo.bio.value}</p>
+                  <p>
+                    {typeof authorInfo.bio === "string"
+                      ? authorInfo.bio
+                      : authorInfo.bio.value}
+                  </p>
                 </div>
               )}
             </div>
 
-            <h2 className="text-2xl font-bold text-[#a9c5a0] mb-6">Books by {authorInfo?.name}</h2>
-            
+            <h2 className="text-2xl font-bold text-[#a9c5a0] mb-6">
+              Books by {authorInfo?.name}
+            </h2>
+
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
               {isLoading ? (
-                Array(6).fill(0).map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
-                  />
-                ))
+                Array(6)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div
+                      key={index}
+                      className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                    />
+                  ))
               ) : books.length > 0 ? (
                 books.map((book: any) => (
                   <Link
                     key={book.key}
-                    href={`/books/${book.key.split('/').pop()}`}
+                    href={`/books/${book.key.split("/").pop()}`}
                     className="transform transition-all hover:scale-105"
                   >
                     <div className="flex flex-col h-full">

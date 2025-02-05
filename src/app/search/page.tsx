@@ -11,7 +11,7 @@ import { useBooks } from "@/app/hooks/useBooks";
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
-  const { books, isLoading, error } = useBooks('search', query || '');
+  const { books, isLoading, error } = useBooks("search", query || "");
 
   if (error) {
     return <div className="text-red-700 text-center m-10">{error}</div>;
@@ -26,10 +26,12 @@ function SearchResults() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
         {isLoading ? (
-          Array(12).fill(0).map((_, index) => (
-            <div
+          Array(12)
+            .fill(0)
+            .map((_, index) => (
+              <div
                 key={index}
-              className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
               />
             ))
         ) : books.length > 0 ? (
@@ -49,26 +51,26 @@ function SearchResults() {
                 />
                 <div className="mt-2 space-y-1">
                   <h2 className="font-semibold text-[#a9c5a0] line-clamp-2">
-                  {book.title}
-                </h2>
+                    {book.title}
+                  </h2>
                   <p className="text-sm text-[#758173] line-clamp-1">
-                    By: {book.author_name?.[0] || 'Unknown Author'}
-                </p>
+                    By: {book.author_name?.[0] || "Unknown Author"}
+                  </p>
                   {book.first_publish_year && (
                     <p className="text-xs text-[#758173]">
                       {book.first_publish_year}
                     </p>
                   )}
-      </div>
-    </div>
+                </div>
+              </div>
             </Link>
           ))
         ) : (
           <div className="col-span-full text-xl text-[#a9c5a0]">
             No books found for {query}
-      </div>
+          </div>
         )}
-    </div>
+      </div>
     </div>
   );
 }
