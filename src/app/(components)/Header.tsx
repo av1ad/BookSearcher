@@ -51,7 +51,7 @@ const Header = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#A9C5A0]"
+            className="p-4 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#A9C5A0] hover:translate-y-1"
           >
             <Link
               href={item.link}
