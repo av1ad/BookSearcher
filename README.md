@@ -24,6 +24,11 @@ A modern web application built with Next.js that helps users discover books usin
 - Interactive genre categories with hover effects
 - Comprehensive genre listing and filtering
 
+## Feature Features
+- Ability to login/signup
+- Ability to favorite books/AI suggestions
+- Load more books
+
 ## Tech Stack
 
 - **Frontend**: Next.js 15.0.4, React 19.0.0
