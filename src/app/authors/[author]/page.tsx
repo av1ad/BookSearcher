@@ -7,12 +7,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Header from "@/app/(components)/Header";
 import Footer from "@/app/(components)/Footer";
-import { useBooks } from "@/app/hooks/useBooks";
+import { useAuthorBooks } from "@/app/hooks/useAuthorBooks";
 
 export default function AuthorPage() {
   const pathname = usePathname();
   const authorId = pathname.split("/")[2];
-  const { books, authorInfo, isLoading, error } = useBooks("author", authorId);
+  const { books, authorInfo, isLoading, isLoadingMore, error, hasMore, loadMore } = useAuthorBooks(authorId);
 
   return (
     <div>
@@ -89,6 +89,38 @@ export default function AuthorPage() {
                 </div>
               )}
             </div>
+            
+            {books.length > 0 && hasMore && !isLoading && (
+              <div className="flex justify-center mt-12">
+                <button
+                  onClick={loadMore}
+                  disabled={isLoadingMore}
+                  className="px-8 py-3 bg-[#a9c5a0] text-white rounded-xl hover:bg-[#8fb389] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                >
+                  {isLoadingMore ? (
+                    <>
+                      <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                      <span>Loading more...</span>
+                    </>
+                  ) : (
+                    <span>Load More Books</span>
+                  )}
+                </button>
+              </div>
+            )}
+            
+            {isLoadingMore && (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mt-6">
+                {Array(8)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div
+                      key={index}
+                      className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         )}
       </div>

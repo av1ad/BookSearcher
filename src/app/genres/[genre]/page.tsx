@@ -5,14 +5,14 @@ import Header from "@/app/(components)/Header";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { useBooks } from "@/app/hooks/useBooks";
+import { useGenreBooks } from "@/app/hooks/useGenreBooks";
 
 export default function GenrePage() {
   const pathname = usePathname();
   const genre = pathname.split("/")[2];
   const displayGenre = genre.replace(/_/g, " ").replace(/-/g, " ");
 
-  const { books, isLoading, error } = useBooks("genre", genre);
+  const { books, isLoading, isLoadingMore, error, hasMore, loadMore } = useGenreBooks(genre);
   return (
     <div>
       <Header />
@@ -65,6 +65,38 @@ export default function GenrePage() {
                 No books found for this genre
               </div>
             )}
+          </div>
+        )}
+        
+        {books.length > 0 && hasMore && !isLoading && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={loadMore}
+              disabled={isLoadingMore}
+              className="px-8 py-3 bg-[#a9c5a0] text-white rounded-xl hover:bg-[#8fb389] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+            >
+              {isLoadingMore ? (
+                <>
+                  <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                  <span>Loading more...</span>
+                </>
+              ) : (
+                <span>Load More Books</span>
+              )}
+            </button>
+          </div>
+        )}
+        
+        {isLoadingMore && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mt-6">
+            {Array(8)
+              .fill(0)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="w-full h-[24em] animate-pulse bg-white/10 rounded-lg"
+                />
+              ))}
           </div>
         )}
       </div>
