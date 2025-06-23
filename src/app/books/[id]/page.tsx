@@ -3,14 +3,47 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Header from "@/app/(components)/Header";
 import Footer from "@/app/(components)/Footer";
 import { useBooks } from "@/app/hooks/useBooks";
+import { useAuth } from "@/contexts/AuthContext";
+import { useFavorites } from "@/app/hooks/useFavorites";
 
 export default function BookPage() {
   const pathname = usePathname();
   const bookId = pathname.split("/")[2];
   const { bookInfo, authorInfo, isLoading, error } = useBooks("book", bookId);
+  const { user } = useAuth();
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+
+  const handleFavoriteToggle = async () => {
+    if (!user || !bookInfo) return;
+    
+    setFavoriteLoading(true);
+    try {
+      const bookCover = bookInfo.cover_id 
+        ? `https://covers.openlibrary.org/b/id/${bookInfo.cover_id}-L.jpg`
+        : undefined;
+
+      if (isFavorite(bookId)) {
+        await removeFavorite(bookId);
+      } else {
+        await addFavorite(
+          bookId,
+          bookInfo.title,
+          authorInfo?.name,
+          bookCover
+        );
+      }
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setFavoriteLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -43,9 +76,32 @@ export default function BookPage() {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-[#a9c5a0]">
-                {bookInfo.title}
-              </h1>
+              <div className="flex items-start justify-between">
+                <h1 className="text-4xl font-bold text-[#a9c5a0] flex-1">
+                  {bookInfo.title}
+                </h1>
+                
+                {user && (
+                  <button
+                    onClick={handleFavoriteToggle}
+                    disabled={favoriteLoading}
+                    className={`ml-4 p-3 rounded-full transition-colors ${
+                      isFavorite(bookId)
+                        ? 'text-red-500 hover:text-red-600'
+                        : 'text-gray-400 hover:text-red-500'
+                    } disabled:opacity-50`}
+                    title={isFavorite(bookId) ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    {favoriteLoading ? (
+                      <div className="animate-spin h-6 w-6 border-2 border-current border-t-transparent rounded-full" />
+                    ) : isFavorite(bookId) ? (
+                      <FaHeart size={24} />
+                    ) : (
+                      <FaRegHeart size={24} />
+                    )}
+                  </button>
+                )}
+              </div>
 
               {authorInfo && (
                 <Link
