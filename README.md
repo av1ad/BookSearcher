@@ -2,7 +2,7 @@
 
 A comprehensive, modern book discovery platform built with Next.js that combines traditional search with AI-powered recommendations. Discover, explore, and curate your personal book collection with intelligent features and beautiful design.
 
-![BookSearcher Banner](thumbnail.png)
+![BookSearcher Banner](https://github.com/av1ad/BookSearcher/blob/main/public/thumbnail.png)
 
 Check out [BookSearcher](https://book-searcher-self-six.vercel.app/)
 
